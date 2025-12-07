@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Our Christmas Week in Richmond</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Vintage-ish Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" href="styles.css">
+<style> 
+    :root {
+      --bg-paper: #fdf6e9;
+      --deep-green: #24352b;
+      --deep-red: #b53b3b;
+      --gold: #c9a24a;
+      --ink: #2a2520;
+      --card-border: #d9c6a5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #fefbf5 0, #f7ecda 60%, #f0e1c4 100%);
+      color: var(--ink);
+      line-height: 1.6;
+      padding: 2rem 1rem 3rem;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--bg-paper);
+      border-radius: 18px;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow:
+        0 24px 60px rgba(0,0,0,0.12),
+        0 0 0 1px rgba(255,255,255,0.7) inset;
+      padding: 2.5rem 1.75rem 2.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle paper specks */
+    .page::before {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(0,0,0,0.08) 0, transparent 55%),
+        radial-gradient(circle at 80% 0%, rgba(0,0,0,0.04) 0, transparent 50%);
+      mix-blend-mode: multiply;
+      opacity: 0.18;
+    }
+
+    .page-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .banner-wrap {
+      display: inline-block;
+      position: relative;
+      padding: 0.75rem 2.75rem;
+    }
+
+    .banner {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.1vw + 1rem, 2.4rem);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--deep-green);
+      position: relative;
+      z-index: 1;
+      white-space: nowrap;
+    }
+
+    .banner-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f3e3c7, #fdf6e9);
+      border: 2px solid var(--deep-green);
+      transform: skewX(-10deg);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.15);
+    }
+
+    .banner-wrap::after {
+      content: "✴ ✴ ✴";
+      position: absolute;
+      top: -1.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.9rem;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+    }
+
+    header .sub {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(0,0,0,0.6);
+    }
+
+    .divider {
+      margin: 1.75rem auto 2rem;
+      max-width: 640px;
+      height: 1px;
+      background-image: linear-gradient(
+        to right,
+        transparent 0,
+        rgba(0,0,0,0.28) 15%,
+        rgba(0,0,0,0.28) 85%,
+        transparent 100%
+      );
+      position: relative;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "✶";
+      position: absolute;
+      top: -0.7rem;
+      font-size: 0.9rem;
+      color: var(--deep-red);
+    }
+
+    .divider::before {
+      left: 0.6rem;
+    }
+    .divider::after {
+      right: 0.6rem;
+    }
+
+    .days {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .day-card {
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.4rem 1.3rem 1.3rem;
+      background: rgba(255, 252, 245, 0.94);
+      box-shadow:
+        0 10px 25px rgba(0,0,0,0.06),
+        0 0 0 1px rgba(255,255,255,0.8) inset;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .day-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(
+        120deg,
+        rgba(255,255,255,0.75),
+        transparent 40%,
+        transparent 60%,
+        rgba(255,255,255,0.75)
+      );
+      opacity: 0.75;
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    .day-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .day-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .day-emoji {
+      font-size: 1.4rem;
+    }
+
+    .day-title {
+      font-family: 'Playfair Display', serif;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.95rem;
+      color: var(--deep-green);
+    }
+
+    .day-subtitle {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(0,0,0,0.5);
+      margin-top: -0.1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 1.4rem;
+      font-size: 0.96rem;
+      margin-bottom: 0.2rem;
+    }
+
+    ul li::before {
+      content: "✶";
+      position: absolute;
+      left: 0.1rem;
+      top: 0.1rem;
+      font-size: 0.65rem;
+      color: var(--deep-red);
+    }
+
+    .nested-list {
+      margin-top: 0.35rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .nested-list li {
+      font-size: 0.92rem;
+      padding-left: 1.6rem;
+    }
+
+    .nested-list li::before {
+      content: "•";
+      font-size: 0.8rem;
+      top: 0.12rem;
+      color: var(--deep-green);
+    }
+
+    .tiny-note {
+      margin-top: 0.6rem;
+      font-size: 0.8rem;
+      font-style: italic;
+      color: rgba(0,0,0,0.6);
+    }
+
+    /* little decorative corner doodles */
+    .corner-deco {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 1px dashed rgba(0,0,0,0.12);
+      opacity: 0.7;
+    }
+
+    .corner-deco--tl {
+      top: -18px;
+      left: -18px;
+    }
+
+    .corner-deco--br {
+      bottom: -18px;
+      right: -18px;
+    }
+
+    .corner-deco span {
+      position: absolute;
+      font-size: 1.1rem;
+    }
+
+    .corner-deco--tl span {
+      bottom: 8px;
+      right: 14px;
+    }
+
+    .corner-deco--br span {
+      top: 10px;
+      left: 12px;
+    }
+
+    footer {
+      margin-top: 2.3rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(0,0,0,0.6);
+    }
+
+    footer .heart {
+      color: var(--deep-red);
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 1.8rem 1.1rem 2.3rem;
+        border-radius: 14px;
+      }
+      .banner-wrap {
+        padding: 0.65rem 1.8rem;
+      }
+      .banner {
+        font-size: 1.5rem;
+        white-space: normal;
+      }
+      .day-card {
+        padding: 1.2rem 1.1rem 1.1rem;
+      }
+    }
+  </style>
+ 
+</head>
+<body>
+  <div class="page">
+    <div class="page-inner">
+      <header>
+        <div class="banner-wrap">
+          <div class="banner">
+            🌲 Our Christmas Week in Richmond 🌲
+          </div>
+        </div>
+        <div class="sub">
+          cozy plans · twinkly lights · little memories
+        </div>
+      </header>
+
+      <div class="divider"></div>
+
+      <main class="days">
+
+        <!-- TUESDAY -->
+        <section class="day-card">
+          <div class="corner-deco corner-deco--tl">
+            <span>🍪</span>
+          </div>
+          <div class="day-inner">
+            <div class="day-heading">
+              <div class="day-emoji">🎁</div>
+              <div class="day-title">Tuesday</div>
+            </div>
+            <div class="day-subtitle">arrival · cake · christmas pjs</div>
+            <ul>
+              <li>Caroline arrives</li>
+              <li>Real Housewives + decorate little gifts</li>
+              <li>Supper: Honey Garlic Chicken, rice &amp; broccoli</li>
+              <li>Shyndigz cake 🍰</li>
+              <li>Christmas pajamas 🎀</li>
+            </ul>
+            <p class="tiny-note">
+              Tiny doodle idea: a gingerbread cookie or cake slice in the corner.
+            </p>
+          </div>
+        </section>
+
+        <!-- WEDNESDAY -->
+        <section class="day-card">
+          <div class="corner-deco corner-deco--br">
+            <span>🌿</span>
+          </div>
+          <div class="day-inner">
+            <div class="day-heading">
+              <div class="day-emoji">🏠</div>
+              <div class="day-title">Wednesday</div>
+            </div>
+            <div class="day-subtitle">gingerbread · lights · hotel trees</div>
+            <ul>
+              <li>Gingerbread houses</li>
+              <li>Beauvine supper &amp; happy hour 🍔</li>
+              <li>The Fan — Christmas lights drive ✴</li>
+              <li>Hotel Trees:</li>
+            </ul>
+            <ul class="nested-list">
+              <li>Jefferson Hotel Christmas Trees</li>
+              <li>Quirk Hotel 🌸</li>
+            </ul>
+            <p class="tiny-note">
+              Add holly leaves &amp; berries around the “Hotel Trees” lines.
+            </p>
+          </div>
+        </section>
+
+        <!-- THURSDAY -->
+        <section class="day-card">
+          <div class="corner-deco corner-deco--tl">
+            <span>🎟️</span>
+          </div>
+          <div class="day-inner">
+            <div class="day-heading">
+              <div class="day-emoji">🎬</div>
+              <div class="day-title">Thursday</div>
+            </div>
+            <div class="day-subtitle">carytown · cocktails · elf at the byrd</div>
+            <ul>
+              <li>Carytown browsing 🎁</li>
+              <li>Miracle on Cary — holiday drinks</li>
+              <li>Supper: Greek on Cary</li>
+              <li>The Byrd Theatre — ELF (7–10 PM)</li>
+            </ul>
+            <p class="tiny-note">
+              Doodle idea: an old-style movie ticket stub by the corner.
+            </p>
+          </div>
+        </section>
+
+        <!-- FRIDAY -->
+        <section class="day-card">
+          <div class="corner-deco corner-deco--br">
+            <span>🕯️</span>
+          </div>
+          <div class="day-inner">
+            <div class="day-heading">
+              <div class="day-emoji">🎭</div>
+              <div class="day-title">Friday</div>
+            </div>
+            <div class="day-subtitle">cozy supper · cocktails · a christmas carol</div>
+            <ul>
+              <li>Caesar salad &amp; crispy chicken (or Caesar &amp; pizza) 🥗🍕</li>
+              <li>Cozy supper at home ✦</li>
+              <li>Evergreen at Birdie’s — Christmas cocktails 🍸</li>
+              <li>A Christmas Carol — 7 PM</li>
+            </ul>
+            <p class="tiny-note">
+              Draw a tiny Victorian top hat &amp; a candle near the title.
+            </p>
+          </div>
+        </section>
+
+        <!-- SATURDAY -->
+        <section class="day-card">
+          <div class="corner-deco corner-deco--tl">
+            <span>🚤</span>
+          </div>
+          <div class="day-inner">
+            <div class="day-heading">
+              <div class="day-emoji">🚤</div>
+              <div class="day-title">Saturday</div>
+            </div>
+            <div class="day-subtitle">market · river · parade of lights</div>
+            <ul>
+              <li>Studio Two Three Winter Market 🎁</li>
+              <li>Boat Parade of Lights — Rocketts Landing (5 PM) ✨</li>
+            </ul>
+            <p class="tiny-note">
+              Little wavy water lines &amp; a simple boat with lights would be cute here.
+            </p>
+          </div>
+        </section>
+
+      </main>
+
+      <footer>
+        Made with <span class="heart">♥</span> for Caroline &amp; Emma’s Christmas week in Richmond.
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
