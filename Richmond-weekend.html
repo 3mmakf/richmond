@@ -4,11 +4,13 @@
   <meta charset="UTF-8" />
   <title>Our Christmas Week in Richmond</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <!-- Vintage-ish Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" href="styles.css">
-<style> 
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
     :root {
       --bg-paper: #fdf6e9;
       --deep-green: #24352b;
@@ -24,16 +26,24 @@
       padding: 0;
     }
 
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
     body {
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: radial-gradient(circle at top, #fefbf5 0, #f7ecda 60%, #f0e1c4 100%);
       color: var(--ink);
       line-height: 1.6;
-      padding: 2rem 1rem 3rem;
+      padding: 1.5rem 0.75rem 2.5rem;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     .page {
       max-width: 960px;
+      width: 100%;
       margin: 0 auto;
       background: var(--bg-paper);
       border-radius: 18px;
@@ -41,12 +51,11 @@
       box-shadow:
         0 24px 60px rgba(0,0,0,0.12),
         0 0 0 1px rgba(255,255,255,0.7) inset;
-      padding: 2.5rem 1.75rem 2.75rem;
+      padding: 2.2rem 1.4rem 2.6rem;
       position: relative;
       overflow: hidden;
     }
 
-    /* subtle paper specks */
     .page::before {
       content: "";
       pointer-events: none;
@@ -66,25 +75,27 @@
 
     header {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1.8rem;
       position: relative;
     }
 
     .banner-wrap {
       display: inline-block;
       position: relative;
-      padding: 0.75rem 2.75rem;
+      padding: 0.75rem 1.9rem;
+      max-width: 100%;
     }
 
     .banner {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.6rem, 2.1vw + 1rem, 2.4rem);
+      font-size: clamp(1.4rem, 2.3vw + 1rem, 2.2rem);
       letter-spacing: 0.09em;
       text-transform: uppercase;
       color: var(--deep-green);
       position: relative;
       z-index: 1;
-      white-space: nowrap;
+      white-space: normal;
+      line-height: 1.3;
     }
 
     .banner-wrap::before {
@@ -101,24 +112,25 @@
     .banner-wrap::after {
       content: "✴ ✴ ✴";
       position: absolute;
-      top: -1.4rem;
+      top: -1.3rem;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       letter-spacing: 0.4em;
       color: var(--gold);
+      white-space: nowrap;
     }
 
     header .sub {
       margin-top: 0.75rem;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.18em;
       color: rgba(0,0,0,0.6);
     }
 
     .divider {
-      margin: 1.75rem auto 2rem;
+      margin: 1.5rem auto 1.8rem;
       max-width: 640px;
       height: 1px;
       background-image: linear-gradient(
@@ -140,24 +152,20 @@
       color: var(--deep-red);
     }
 
-    .divider::before {
-      left: 0.6rem;
-    }
-    .divider::after {
-      right: 0.6rem;
-    }
+    .divider::before { left: 0.6rem; }
+    .divider::after  { right: 0.6rem; }
 
     .days {
       display: flex;
       flex-direction: column;
-      gap: 1.75rem;
+      gap: 1.4rem;
     }
 
     .day-card {
       border: 1px solid var(--card-border);
       border-radius: 16px;
-      padding: 1.4rem 1.3rem 1.3rem;
-      background: rgba(255, 252, 245, 0.94);
+      padding: 1.3rem 1.1rem 1.1rem;
+      background: rgba(255, 252, 245, 0.96);
       box-shadow:
         0 10px 25px rgba(0,0,0,0.06),
         0 0 0 1px rgba(255,255,255,0.8) inset;
@@ -176,7 +184,7 @@
         transparent 60%,
         rgba(255,255,255,0.75)
       );
-      opacity: 0.75;
+      opacity: 0.6;
       mix-blend-mode: soft-light;
       pointer-events: none;
     }
@@ -188,30 +196,31 @@
 
     .day-heading {
       display: flex;
-      align-items: baseline;
-      gap: 0.5rem;
-      margin-bottom: 0.6rem;
+      align-items: center;
+      gap: 0.45rem;
+      margin-bottom: 0.45rem;
+      flex-wrap: wrap;
     }
 
     .day-emoji {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
     }
 
     .day-title {
       font-family: 'Playfair Display', serif;
       text-transform: uppercase;
       letter-spacing: 0.18em;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: var(--deep-green);
     }
 
     .day-subtitle {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      color: rgba(0,0,0,0.5);
-      margin-top: -0.1rem;
-      margin-bottom: 0.6rem;
+      color: rgba(0,0,0,0.55);
+      margin-top: -0.05rem;
+      margin-bottom: 0.55rem;
     }
 
     ul {
@@ -222,82 +231,80 @@
     ul li {
       position: relative;
       padding-left: 1.4rem;
-      font-size: 0.96rem;
-      margin-bottom: 0.2rem;
+      font-size: 0.95rem;
+      margin-bottom: 0.22rem;
     }
 
     ul li::before {
       content: "✶";
       position: absolute;
       left: 0.1rem;
-      top: 0.1rem;
-      font-size: 0.65rem;
+      top: 0.12rem;
+      font-size: 0.6rem;
       color: var(--deep-red);
     }
 
     .nested-list {
-      margin-top: 0.35rem;
-      margin-bottom: 0.3rem;
+      margin-top: 0.3rem;
+      margin-bottom: 0.25rem;
     }
 
     .nested-list li {
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       padding-left: 1.6rem;
     }
 
     .nested-list li::before {
       content: "•";
       font-size: 0.8rem;
-      top: 0.12rem;
+      top: 0.08rem;
       color: var(--deep-green);
     }
 
     .tiny-note {
-      margin-top: 0.6rem;
-      font-size: 0.8rem;
+      margin-top: 0.55rem;
+      font-size: 0.78rem;
       font-style: italic;
       color: rgba(0,0,0,0.6);
     }
 
-    /* little decorative corner doodles */
     .corner-deco {
       position: absolute;
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       border: 1px dashed rgba(0,0,0,0.12);
       opacity: 0.7;
+      pointer-events: none;
     }
 
     .corner-deco--tl {
-      top: -18px;
-      left: -18px;
+      top: -16px;
+      left: -16px;
     }
-
     .corner-deco--br {
-      bottom: -18px;
-      right: -18px;
+      bottom: -16px;
+      right: -16px;
     }
 
     .corner-deco span {
       position: absolute;
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
 
     .corner-deco--tl span {
       bottom: 8px;
-      right: 14px;
+      right: 12px;
     }
-
     .corner-deco--br span {
-      top: 10px;
-      left: 12px;
+      top: 11px;
+      left: 11px;
     }
 
     footer {
-      margin-top: 2.3rem;
+      margin-top: 2rem;
       text-align: center;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: rgba(0,0,0,0.6);
     }
 
@@ -305,24 +312,67 @@
       color: var(--deep-red);
     }
 
+    /* MOBILE TWEAKS */
     @media (max-width: 640px) {
+      body {
+        padding: 1.2rem 0.5rem 2rem;
+      }
+
       .page {
-        padding: 1.8rem 1.1rem 2.3rem;
+        padding: 1.7rem 1rem 2.1rem;
+        border-radius: 14px;
+        box-shadow:
+          0 16px 40px rgba(0,0,0,0.12),
+          0 0 0 1px rgba(255,255,255,0.7) inset;
+      }
+
+      .banner-wrap {
+        padding: 0.6rem 1.4rem;
+      }
+
+      .banner {
+        font-size: 1.4rem;
+        text-align: center;
+      }
+
+      .banner-wrap::after {
+        top: -1.1rem;
+        font-size: 0.75rem;
+      }
+
+      .days {
+        gap: 1.1rem;
+      }
+
+      .day-card {
+        padding: 1.1rem 0.95rem 1.05rem;
         border-radius: 14px;
       }
-      .banner-wrap {
-        padding: 0.65rem 1.8rem;
+
+      .day-title {
+        font-size: 0.88rem;
       }
-      .banner {
-        font-size: 1.5rem;
-        white-space: normal;
+
+      .day-subtitle {
+        font-size: 0.74rem;
+        letter-spacing: 0.14em;
       }
-      .day-card {
-        padding: 1.2rem 1.1rem 1.1rem;
+
+      ul li {
+        font-size: 0.9rem;
+        padding-left: 1.25rem;
+      }
+
+      .tiny-note {
+        font-size: 0.75rem;
+      }
+
+      .corner-deco {
+        width: 52px;
+        height: 52px;
       }
     }
   </style>
- 
 </head>
 <body>
   <div class="page">
@@ -341,7 +391,6 @@
       <div class="divider"></div>
 
       <main class="days">
-
         <!-- TUESDAY -->
         <section class="day-card">
           <div class="corner-deco corner-deco--tl">
@@ -354,7 +403,7 @@
             </div>
             <div class="day-subtitle">arrival · cake · christmas pjs</div>
             <ul>
-              <li>Caroline arrives</li>
+              <input type="checkbox">Caroline arrives</li>
               <li>Real Housewives + decorate little gifts</li>
               <li>Supper: Honey Garlic Chicken, rice &amp; broccoli</li>
               <li>Shyndigz cake 🍰</li>
@@ -459,7 +508,6 @@
             </p>
           </div>
         </section>
-
       </main>
 
       <footer>
@@ -469,3 +517,4 @@
   </div>
 </body>
 </html>
+
