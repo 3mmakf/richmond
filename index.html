@@ -243,10 +243,7 @@
 
     /* collapse toggle pill */
     .day-toggle {
-      .day-toggle {
-  color: var(--ink) !important;     /* keep text dark */
-  -webkit-appearance: none;         /* remove mobile default */
-  appearance: none;
+      
       position: absolute;
       top: 0.7rem;
       right: 0.8rem;
@@ -259,6 +256,18 @@
       letter-spacing: 0.12em;
       cursor: pointer;
     }
+.day-toggle {
+  color: rgba(0,0,0,0.7);          /* normal dark text */
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(0,0,0,0.12);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.day-toggle:hover,
+.day-toggle:active {
+  color: rgba(0,0,0,0.9);
+}
 
     .day-toggle:hover {
       background: #fff;
