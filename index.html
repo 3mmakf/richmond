@@ -12,6 +12,7 @@
 
   <style>
     :root {
+      /* pastel vintage christmas palette */
       --bg-paper: #fffaf4;
       --deep-green: #3b6455;
       --deep-red: #c84b5a;
@@ -363,71 +364,6 @@
       color: var(--deep-red);
     }
 
-    .collage {
-      margin-top: 2rem;
-      padding-top: 1.2rem;
-      border-top: 1px dashed rgba(0,0,0,0.15);
-    }
-
-    .collage-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      text-align: center;
-      color: var(--deep-green);
-      margin-bottom: 0.2rem;
-    }
-
-    .collage-caption {
-      font-size: 0.8rem;
-      text-align: center;
-      color: rgba(0,0,0,0.55);
-      margin-bottom: 0.5rem;
-      text-transform: lowercase;
-    }
-
-    .add-photo-note {
-      font-size: 0.75rem;
-      text-align: center;
-      color: rgba(0,0,0,0.55);
-      margin-bottom: 0.6rem;
-    }
-
-    .add-photo-btn {
-      display: block;
-      margin: 0 auto 0.9rem;
-      padding: 0.4rem 1.1rem;
-      border-radius: 999px;
-      border: 1px solid var(--deep-green);
-      background: #fdf2f5;
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      cursor: pointer;
-    }
-
-    .add-photo-btn:hover {
-      background: #ffe5ef;
-    }
-
-    .collage-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      justify-content: center;
-      min-height: 1.5rem;
-    }
-
-    .collage-grid img {
-      width: 90px;
-      height: 90px;
-      object-fit: cover;
-      border-radius: 14px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.18);
-      border: 2px solid #fff;
-    }
-
     @media (max-width: 640px) {
       body {
         padding: 1.1rem 0.4rem 1.6rem;
@@ -707,18 +643,6 @@
           </section>
         </main>
 
-        <section class="collage" id="photo-collage">
-          <h2 class="collage-title">little memory collage</h2>
-          <p class="collage-caption">photos from the moments we checked off ✿</p>
-          <p class="add-photo-note">
-            check something off above, then tap the button to add a photo from that moment ♡
-          </p>
-          <button id="add-photo-button" type="button" class="add-photo-btn">
-            add photo to collage ✿
-          </button>
-          <div class="collage-grid" id="photo-collage-grid"></div>
-        </section>
-
         <footer>
           Made with <span class="heart">♥</span> for Caroline &amp; Emma’s Christmas week in Richmond.
         </footer>
@@ -726,21 +650,11 @@
     </div>
   </div>
 
-  <!-- hidden file input for taking/choosing photos -->
-  <input
-    type="file"
-    id="photo-capture"
-    accept="image/*"
-    capture="environment"
-    style="display:none"
-  />
-
   <script>
     (function () {
       const CHECKS_KEY   = 'rcw_checks_v1';
       const DAYS_KEY     = 'rcw_days_v1';
       const TASK_DAY_KEY = 'rcw_task_days_v1';
-      const PHOTOS_KEY   = 'rcw_photos_v1';
 
       function loadState(key, fallback) {
         try {
@@ -768,103 +682,6 @@
           const list = card.querySelector('.checklist');
           if (id && list) dayLists[id] = list;
         });
-
-        const photoInput      = document.getElementById('photo-capture');
-        const addPhotoButton  = document.getElementById('add-photo-button');
-        const collageSect     = document.getElementById('photo-collage');
-        const collageGrid     = document.getElementById('photo-collage-grid');
-        const collageCaption  = document.querySelector('.collage-caption');
-
-        let activePhotoTask   = null;
-        let lastCheckedLabel  = null;
-
-        /* ===== PHOTOS (per-device) ===== */
-        let photoState = loadState(PHOTOS_KEY, []);
-        if (!Array.isArray(photoState)) photoState = [];
-
-        function renderCollage() {
-          if (!collageSect || !collageGrid) return;
-
-          collageGrid.innerHTML = '';
-
-          if (!photoState || photoState.length === 0) {
-            const msg = document.createElement('p');
-            msg.textContent = 'no photos yet — add one below ✿';
-            msg.style.fontSize = '0.8rem';
-            msg.style.textAlign = 'center';
-            msg.style.color = 'rgba(0,0,0,0.5)';
-            collageGrid.appendChild(msg);
-            if (collageCaption) {
-              collageCaption.textContent = 'photos from the moments we checked off ✿';
-            }
-            return;
-          }
-
-          const sorted = photoState.slice().sort((a, b) => (a.ts || 0) - (b.ts || 0));
-
-          sorted.forEach(p => {
-            if (!p || !p.dataUrl) return;
-            const img = document.createElement('img');
-            img.src = p.dataUrl;
-            img.alt = p.label || 'memory photo';
-            collageGrid.appendChild(img);
-          });
-
-          if (collageCaption) {
-            const count = photoState.length;
-            collageCaption.textContent =
-              count === 1
-                ? '1 little memory added ✿'
-                : `${count} little memories added ✿`;
-          }
-        }
-
-        renderCollage();
-
-        if (addPhotoButton && photoInput) {
-          addPhotoButton.addEventListener('click', function () {
-            // tie photo to last checked label if we have one
-            const labelText = lastCheckedLabel || 'this moment';
-            activePhotoTask = {
-              itemId: 'p_' + Date.now(),
-              labelText
-            };
-            // this click handler is a direct user gesture (good for mobile)
-            photoInput.click();
-          });
-        }
-
-        if (photoInput) {
-          photoInput.addEventListener('change', function () {
-            const file = this.files && this.files[0];
-            if (!file || !activePhotoTask) {
-              this.value = '';
-              return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function (e) {
-              const dataUrl = e.target.result;
-              if (!dataUrl) return;
-
-              const newPhoto = {
-                id: 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2),
-                taskId: activePhotoTask.itemId,
-                label: activePhotoTask.labelText,
-                dataUrl: dataUrl,
-                ts: Date.now()
-              };
-
-              photoState.push(newPhoto);
-              saveState(PHOTOS_KEY, photoState);
-              renderCollage();
-            };
-            reader.readAsDataURL(file);
-
-            activePhotoTask = null;
-            photoInput.value = '';
-          });
-        }
 
         /* ===== RESTORE TASK MOVES ===== */
         let taskDayState = loadState(TASK_DAY_KEY, {});
@@ -902,11 +719,6 @@
             const isNowChecked = box.checked;
             checkState[itemId] = isNowChecked;
             saveState(CHECKS_KEY, checkState);
-
-            if (isNowChecked) {
-              const labelEl = box.closest('.check')?.querySelector('.text');
-              lastCheckedLabel = labelEl ? labelEl.textContent.trim() : 'this moment';
-            }
           });
         });
 
@@ -990,6 +802,7 @@
   </script>
 </body>
 </html>
+
 
 
 
