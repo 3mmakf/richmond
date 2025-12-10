@@ -243,7 +243,6 @@
 
     /* collapse toggle pill */
     .day-toggle {
-      
       position: absolute;
       top: 0.7rem;
       right: 0.8rem;
@@ -255,19 +254,15 @@
       text-transform: uppercase;
       letter-spacing: 0.12em;
       cursor: pointer;
+      color: rgba(0,0,0,0.7);
+      -webkit-appearance: none;
+      appearance: none;
     }
-.day-toggle {
-  color: rgba(0,0,0,0.7);          /* normal dark text */
-  background: rgba(255,255,255,0.85);
-  border: 1px solid rgba(0,0,0,0.12);
-  -webkit-appearance: none;
-  appearance: none;
-}
 
-.day-toggle:hover,
-.day-toggle:active {
-  color: rgba(0,0,0,0.9);
-}
+    .day-toggle:hover,
+    .day-toggle:active {
+      color: rgba(0,0,0,0.9);
+    }
 
     .day-toggle:hover {
       background: #fff;
@@ -388,24 +383,24 @@
       color: rgba(0,0,0,0.6);
     }
 
-   .day-move {
-  margin-top: 0.6rem;
-  margin-left: auto;            /* push to the right */
-  display: inline-block;
-  border: none;
-  background: none;
-  padding: 0;
-  font-size: 0.75rem;
-  text-transform: none;
-  letter-spacing: 0.06em;
-  color: rgba(0,0,0,0.6);
-  cursor: pointer;
-}
+    .day-move {
+      margin-top: 0.6rem;
+      margin-left: auto;            /* push to the right */
+      display: inline-block;
+      border: none;
+      background: none;
+      padding: 0;
+      font-size: 0.75rem;
+      text-transform: none;
+      letter-spacing: 0.06em;
+      color: rgba(0,0,0,0.6);
+      cursor: pointer;
+    }
 
-.day-move:hover {
-  text-decoration: underline;
-  color: var(--deep-green);
-}
+    .day-move:hover {
+      text-decoration: underline;
+      color: var(--deep-green);
+    }
 
     footer {
       margin-top: 1.8rem;
@@ -417,45 +412,47 @@
     footer .heart {
       color: var(--deep-red);
     }
-.collage {
-  margin-top: 2rem;
-  padding-top: 1.2rem;
-  border-top: 1px dashed rgba(0,0,0,0.15);
-}
 
-.collage-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  text-align: center;
-  color: var(--deep-green);
-  margin-bottom: 0.2rem;
-}
+    .collage {
+      margin-top: 2rem;
+      padding-top: 1.2rem;
+      border-top: 1px dashed rgba(0,0,0,0.15);
+    }
 
-.collage-caption {
-  font-size: 0.8rem;
-  text-align: center;
-  color: rgba(0,0,0,0.55);
-  margin-bottom: 0.8rem;
-  text-transform: lowercase;
-}
+    .collage-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--deep-green);
+      margin-bottom: 0.2rem;
+    }
 
-.collage-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  justify-content: center;
-}
+    .collage-caption {
+      font-size: 0.8rem;
+      text-align: center;
+      color: rgba(0,0,0,0.55);
+      margin-bottom: 0.8rem;
+      text-transform: lowercase;
+    }
 
-.collage-grid img {
-  width: 90px;
-  height: 90px;
-  object-fit: cover;
-  border-radius: 14px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
-  border: 2px solid #fff;
-}
+    .collage-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      justify-content: center;
+      min-height: 1.5rem;
+    }
+
+    .collage-grid img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 14px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+      border: 2px solid #fff;
+    }
 
     /* mobile tweaks */
     @media (max-width: 640px) {
@@ -574,9 +571,9 @@
                     </label>
                   </li>
                 </ul>
-                 <button class="day-move" type="button">
-        Move to another day→
-      </button>
+                <button class="day-move" type="button">
+                  Move to another day →
+                </button>
               </div>
             </div>
           </section>
@@ -633,9 +630,9 @@
                     <span class="text">Quirk Hotel 🌸</span>
                   </label>
                 </div>
-                 <button class="day-move" type="button">
-        Move to another day→
-      </button>
+                <button class="day-move" type="button">
+                  Move to another day →
+                </button>
               </div>
             </div>
           </section>
@@ -662,7 +659,7 @@
                     <label class="check">
                       <input type="checkbox" data-item-id="thu_dinner" />
                       <span class="box"></span>
-                      <span class="text">Dinner in Carrytown: Greek on Cary</span>
+                      <span class="text">Dinner in Carytown: Greek on Cary</span>
                     </label>
                   </li>
                   <li>
@@ -680,9 +677,9 @@
                     </label>
                   </li>
                 </ul>
-                 <button class="day-move" type="button">
-        Move to another day→
-      </button>
+                <button class="day-move" type="button">
+                  Move to another day →
+                </button>
               </div>
             </div>
           </section>
@@ -720,9 +717,9 @@
                     </label>
                   </li>
                 </ul>
-                 <button class="day-move" type="button">
-        Move to another day→
-      </button>
+                <button class="day-move" type="button">
+                  Move to another day →
+                </button>
               </div>
             </div>
           </section>
@@ -753,13 +750,13 @@
                     </label>
                   </li>
                 </ul>
-                 <button class="day-move" type="button">
-        Move to another day→
-      </button>
+                <button class="day-move" type="button">
+                  Move to another day →
+                </button>
               </div>
             </div>
           </section>
-               </main>
+        </main>
 
         <section class="collage" id="photo-collage">
           <h2 class="collage-title">little memory collage</h2>
@@ -773,258 +770,291 @@
       </div>
     </div>
   </div>
+
+  <!-- hidden file input for taking/choosing photos -->
   <input
-  type="file"
-  id="photo-capture"
-  accept="image/*"
-  capture="environment"
-  style="display:none"
-/>
+    type="file"
+    id="photo-capture"
+    accept="image/*"
+    capture="environment"
+    style="display:none"
+  />
 
-<script>
-  (function () {
-    const CHECKS_KEY   = 'richmond_christmas_checklist_v4';
-const DAYS_KEY     = 'richmond_christmas_days_v2';
-const TASK_DAY_KEY = 'richmond_christmas_task_days_v2';
-const PHOTOS_KEY   = 'richmond_christmas_photos_v2';
+  <script>
+    (function () {
+      const CHECKS_KEY   = 'richmond_christmas_checklist_v4';
+      const DAYS_KEY     = 'richmond_christmas_days_v2';
+      const TASK_DAY_KEY = 'richmond_christmas_task_days_v2';
+      const PHOTOS_KEY   = 'richmond_christmas_photos_v2';
 
-    function loadState(key) {
-      try {
-        const raw = localStorage.getItem(key);
-        return raw ? JSON.parse(raw) : null;
-      } catch (e) {
-        console.error('Error loading state for', key, e);
-        return null;
-      }
-    }
-
-    function saveState(key, value) {
-      try {
-        localStorage.setItem(key, JSON.stringify(value));
-      } catch (e) {
-        console.error('Error saving state for', key, e);
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-      const dayCards = Array.from(document.querySelectorAll('.day-card'));
-      const dayLists = {};
-
-      dayCards.forEach(card => {
-        const id = card.dataset.dayId;
-        const list = card.querySelector('.checklist');
-        if (id && list) {
-          dayLists[id] = list;
+      function loadState(key) {
+        try {
+          const raw = localStorage.getItem(key);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) {
+          console.error('Error loading state for', key, e);
+          return null;
         }
-      });
+      }
 
-      /* ===== 0. Collage elements ===== */
-      const photoInput    = document.getElementById('photo-capture');
-      const collageSect   = document.getElementById('photo-collage');
-      const collageGrid   = document.getElementById('photo-collage-grid');
-      let   photoState    = loadState(PHOTOS_KEY);
-      if (!Array.isArray(photoState)) photoState = [];
-      let   activePhotoTask = null;
-
-      function renderCollage() {
-        if (!collageSect || !collageGrid) return;
-        if (!photoState || photoState.length === 0) {
-          collageSect.style.display = 'none';
-          return;
+      function saveState(key, value) {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
+        } catch (e) {
+          console.error('Error saving state for', key, e);
         }
-        collageSect.style.display = 'block';
-        collageGrid.innerHTML = '';
-        photoState.forEach(p => {
-          const img = document.createElement('img');
-          img.src = p.dataUrl;
-          img.alt = p.label || 'memory photo';
-          collageGrid.appendChild(img);
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const dayCards = Array.from(document.querySelectorAll('.day-card'));
+        const dayLists = {};
+
+        dayCards.forEach(card => {
+          const id = card.dataset.dayId;
+          const list = card.querySelector('.checklist');
+          if (id && list) {
+            dayLists[id] = list;
+          }
         });
-      }
 
-      renderCollage();
+        /* ===== 0. Collage elements ===== */
+        const photoInput  = document.getElementById('photo-capture');
+        const collageSect = document.getElementById('photo-collage');
+        const collageGrid = document.getElementById('photo-collage-grid');
+        let photoState    = loadState(PHOTOS_KEY);
+        if (!Array.isArray(photoState)) photoState = [];
+        let activePhotoTask = null;
 
-      if (photoInput) {
-        photoInput.addEventListener('change', function () {
-          const file = this.files && this.files[0];
-          if (!file || !activePhotoTask) {
-            this.value = '';
+        function renderCollage() {
+          if (!collageSect || !collageGrid) return;
+
+          collageSect.style.display = 'block';
+          collageGrid.innerHTML = '';
+
+          if (!photoState || photoState.length === 0) {
+            const msg = document.createElement('p');
+            msg.textContent = 'no photos yet — check something off and add one ✿';
+            msg.style.fontSize = '0.8rem';
+            msg.style.textAlign = 'center';
+            msg.style.color = 'rgba(0,0,0,0.5)';
+            collageGrid.appendChild(msg);
             return;
           }
 
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            const dataUrl = e.target.result;
-            if (!dataUrl) return;
+          photoState.forEach(p => {
+            const img = document.createElement('img');
+            img.src = p.dataUrl;
+            img.alt = p.label || 'memory photo';
+            collageGrid.appendChild(img);
+          });
+        }
 
-            const newPhoto = {
-              id: 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2),
-              taskId: activePhotoTask.itemId,
-              label: activePhotoTask.labelText,
-              dataUrl: dataUrl,
-              ts: Date.now()
+        renderCollage();
+
+        if (photoInput) {
+          photoInput.addEventListener('change', function () {
+            const file = this.files && this.files[0];
+            if (!file || !activePhotoTask) {
+              this.value = '';
+              return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              const dataUrl = e.target.result;
+              if (!dataUrl) return;
+
+              const newPhoto = {
+                id: 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2),
+                taskId: activePhotoTask.itemId,
+                label: activePhotoTask.labelText,
+                dataUrl: dataUrl,
+                ts: Date.now()
+              };
+
+              photoState.push(newPhoto);
+              saveState(PHOTOS_KEY, photoState);
+              renderCollage();
             };
+            reader.readAsDataURL(file);
 
-            photoState.push(newPhoto);
-            saveState(PHOTOS_KEY, photoState);
-            renderCollage();
-          };
-          reader.readAsDataURL(file);
+            activePhotoTask = null;
+            photoInput.value = '';
+          });
+        }
 
-          // reset for next time
-          activePhotoTask = null;
-          this.value = '';
+        /* ===== 1. Restore moved tasks to their saved day ===== */
+        let taskDayState = loadState(TASK_DAY_KEY);
+        if (!taskDayState) taskDayState = {};
+
+        const allCheckboxes = Array.from(
+          document.querySelectorAll('.check input[type="checkbox"]')
+        );
+
+        // group checkboxes by item id so they can sync
+        const checkboxGroups = {};
+        allCheckboxes.forEach((box, index) => {
+          const itemId = box.dataset.itemId || ('box_' + index);
+          if (!checkboxGroups[itemId]) {
+            checkboxGroups[itemId] = [];
+          }
+          checkboxGroups[itemId].push(box);
         });
-      }
 
-      /* ===== 1. Restore moved tasks to their saved day ===== */
-      let taskDayState = loadState(TASK_DAY_KEY);
-      if (!taskDayState) taskDayState = {};
+        // move tasks to saved day (if they were moved before)
+        allCheckboxes.forEach((box, index) => {
+          const itemId = box.dataset.itemId || ('box_' + index);
+          const savedDay = taskDayState[itemId];
+          if (!savedDay) return;
 
-      const allCheckboxes = Array.from(document.querySelectorAll('.check input[type="checkbox"]'));
+          const li = box.closest('li');
+          const currentCard = box.closest('.day-card');
+          const currentDayId = currentCard ? currentCard.dataset.dayId : null;
 
-      allCheckboxes.forEach((box, index) => {
-        const itemId = box.dataset.itemId || ('box_' + index);
-        const savedDay = taskDayState[itemId];
-        if (!savedDay) return;
+          if (li && savedDay !== currentDayId && dayLists[savedDay]) {
+            dayLists[savedDay].appendChild(li);
+          }
+        });
 
-        const li = box.closest('li');
-        const currentCard = box.closest('.day-card');
-        const currentDayId = currentCard ? currentCard.dataset.dayId : null;
+        /* ===== 2. Persist checkbox checked state + sync ===== */
+        let checkState = loadState(CHECKS_KEY);
+        if (!checkState) checkState = {};
 
-        if (li && savedDay !== currentDayId && dayLists[savedDay]) {
-          dayLists[savedDay].appendChild(li);
-        }
-      });
+        allCheckboxes.forEach((box, index) => {
+          const itemId = box.dataset.itemId || ('box_' + index);
 
-      /* ===== 2. Persist checkbox checked state (and trigger photo prompt) ===== */
-      let checkState = loadState(CHECKS_KEY);
-      if (!checkState) checkState = {};
+          // restore checked state
+          if (Object.prototype.hasOwnProperty.call(checkState, itemId)) {
+            box.checked = !!checkState[itemId];
+          }
 
-      allCheckboxes.forEach((box, index) => {
-        const itemId = box.dataset.itemId || ('box_' + index);
+          box.addEventListener('change', () => {
+            const wasChecked   = !!checkState[itemId];
+            const isNowChecked = box.checked;
 
-        if (Object.prototype.hasOwnProperty.call(checkState, itemId)) {
-          box.checked = !!checkState[itemId];
-        }
+            // 1. save new state
+            checkState[itemId] = isNowChecked;
+            saveState(CHECKS_KEY, checkState);
 
-        box.addEventListener('change', () => {
-          const wasChecked = !!checkState[itemId];
-          const isNowChecked = box.checked;
+            // 2. sync all checkboxes with same data-item-id
+            const group = checkboxGroups[itemId] || [];
+            group.forEach(other => {
+              if (other !== box) {
+                other.checked = isNowChecked;
+              }
+            });
 
-          checkState[itemId] = isNowChecked;
-          saveState(CHECKS_KEY, checkState);
+            // 3. only prompt for photo when it flips from unchecked -> checked
+            if (!wasChecked && isNowChecked && photoInput) {
+              const labelEl = box.closest('.check')?.querySelector('.text');
+              const labelText = labelEl ? labelEl.textContent.trim() : 'this moment';
 
-          // only prompt when it flips from unchecked -> checked
-          if (!wasChecked && isNowChecked && photoInput) {
-            const labelEl = box.closest('.check')?.querySelector('.text');
-            const labelText = labelEl ? labelEl.textContent.trim() : 'this moment';
+              const ok = confirm(
+                `Do you want to take a photo for:\n“${labelText}”?`
+              );
+              if (ok) {
+                activePhotoTask = { itemId, labelText };
+                photoInput.click();
+              }
+            }
+          });
+        });
 
-            const ok = confirm(`Do you want to take a photo for:\n“${labelText}”?`);
-            if (ok) {
-              activePhotoTask = { itemId, labelText };
-              photoInput.click();
+        /* ===== 3. Collapsible days with saved state ===== */
+        let dayState = loadState(DAYS_KEY);
+        if (!dayState) dayState = {};
+
+        dayCards.forEach((card, cardIndex) => {
+          const dayId = card.dataset.dayId || ('day_' + cardIndex);
+          const toggleBtn = card.querySelector('.day-toggle');
+          const content = card.querySelector('.day-content');
+
+          if (!toggleBtn || !content) return;
+
+          if (dayState[dayId]) {
+            card.classList.add('collapsed');
+          }
+
+          function updateToggleLabel() {
+            if (card.classList.contains('collapsed')) {
+              toggleBtn.textContent = 'Show day ✿';
+            } else {
+              toggleBtn.textContent = 'Hide details ✿';
             }
           }
-        });
-      });
 
-      /* ===== 3. Collapsible days with saved state ===== */
-      let dayState = loadState(DAYS_KEY);
-      if (!dayState) dayState = {};
+          toggleBtn.addEventListener('click', () => {
+            card.classList.toggle('collapsed');
+            dayState[dayId] = card.classList.contains('collapsed');
+            saveState(DAYS_KEY, dayState);
+            updateToggleLabel();
+          });
 
-      dayCards.forEach((card, cardIndex) => {
-        const dayId = card.dataset.dayId || ('day_' + cardIndex);
-        const toggleBtn = card.querySelector('.day-toggle');
-        const content = card.querySelector('.day-content');
-
-        if (!toggleBtn || !content) return;
-
-        if (dayState[dayId]) {
-          card.classList.add('collapsed');
-        }
-
-        function updateToggleLabel() {
-          if (card.classList.contains('collapsed')) {
-            toggleBtn.textContent = 'Show day ✿';
-          } else {
-            toggleBtn.textContent = 'Hide details ✿';
-          }
-        }
-
-        toggleBtn.addEventListener('click', () => {
-          card.classList.toggle('collapsed');
-          dayState[dayId] = card.classList.contains('collapsed');
-          saveState(DAYS_KEY, dayState);
           updateToggleLabel();
         });
 
-        updateToggleLabel();
-      });
+        /* ===== 4. "Move to another day" buttons ===== */
+        dayCards.forEach(card => {
+          const moveBtn = card.querySelector('.day-move');
+          if (!moveBtn) return;
 
-      /* ===== 4. Per-day "Move to another day" buttons ===== */
-      dayCards.forEach(card => {
-        const moveBtn = card.querySelector('.day-move');
-        if (!moveBtn) return;
+          moveBtn.addEventListener('click', () => {
+            const allChecks = card.querySelectorAll('.check input[type="checkbox"]');
+            const unchecked = Array.from(allChecks).filter(cb => !cb.checked);
 
-        moveBtn.addEventListener('click', () => {
-          const allChecks = card.querySelectorAll('.check input[type="checkbox"]');
-          const unchecked = Array.from(allChecks).filter(cb => !cb.checked);
+            if (unchecked.length === 0) {
+              alert('Everything in this day is already checked off! ✨');
+              return;
+            }
 
-          if (unchecked.length === 0) {
-            alert('Everything in this day is already checked off! ✨');
-            return;
-          }
+            let answer = prompt(
+              'Move all UNCHECKED tasks from this day to which day?\n' +
+              'Type: Tuesday, Wednesday, Thursday, Friday, or Saturday.'
+            );
+            if (!answer) return;
 
-          let answer = prompt(
-            'Move all UNCHECKED tasks from this day to which day?\n' +
-            'Type: Tuesday, Wednesday, Thursday, Friday, or Saturday.'
-          );
-          if (!answer) return;
+            answer = answer.trim().toLowerCase();
 
-          answer = answer.trim().toLowerCase();
+            let targetDay = null;
+            if (answer.startsWith('tue')) targetDay = 'tuesday';
+            else if (answer.startsWith('wed')) targetDay = 'wednesday';
+            else if (answer.startsWith('thu')) targetDay = 'thursday';
+            else if (answer.startsWith('fri')) targetDay = 'friday';
+            else if (answer.startsWith('sat')) targetDay = 'saturday';
 
-          let targetDay = null;
-          if (answer.startsWith('tue')) targetDay = 'tuesday';
-          else if (answer.startsWith('wed')) targetDay = 'wednesday';
-          else if (answer.startsWith('thu')) targetDay = 'thursday';
-          else if (answer.startsWith('fri')) targetDay = 'friday';
-          else if (answer.startsWith('sat')) targetDay = 'saturday';
+            if (!targetDay) {
+              alert('I didn’t recognize that day. Try Tuesday, Wednesday, Thursday, Friday, or Saturday.');
+              return;
+            }
 
-          if (!targetDay) {
-            alert('I didn’t recognize that day. Try Tuesday, Wednesday, Thursday, Friday, or Saturday.');
-            return;
-          }
+            const targetCard = document.querySelector('.day-card[data-day-id="' + targetDay + '"]');
+            if (!targetCard) {
+              alert('I couldn’t find that day on the page.');
+              return;
+            }
 
-          const targetCard = document.querySelector('.day-card[data-day-id="' + targetDay + '"]');
-          if (!targetCard) {
-            alert('I couldn’t find that day on the page.');
-            return;
-          }
+            const targetList = targetCard.querySelector('.checklist');
+            if (!targetList) {
+              alert('That day doesn’t have a checklist to move into.');
+              return;
+            }
 
-          const targetList = targetCard.querySelector('.checklist');
-          if (!targetList) {
-            alert('That day doesn’t have a checklist to move into.');
-            return;
-          }
+            // Move every unchecked <li> to the new day and save mapping
+            unchecked.forEach((cb, idx) => {
+              const li = cb.closest('li');
+              if (!li) return;
+              targetList.appendChild(li);
 
-          // Move every unchecked <li> to the new day and save mapping
-          unchecked.forEach((cb, idx) => {
-            const li = cb.closest('li');
-            if (!li) return;
-            targetList.appendChild(li);
+              const itemId = cb.dataset.itemId || ('box_' + idx);
+              taskDayState[itemId] = targetDay;
+            });
 
-            const itemId = cb.dataset.itemId || ('box_' + idx);
-            taskDayState[itemId] = targetDay;
+            saveState(TASK_DAY_KEY, taskDayState);
           });
-
-          saveState(TASK_DAY_KEY, taskDayState);
         });
       });
-    });
-  })();
-</script>
+    })();
+  </script>
 </body>
 </html>
-
 
