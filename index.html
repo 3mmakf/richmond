@@ -38,8 +38,8 @@
       /* candy-stripe wrapping paper background */
       background-image: url('stripebackground.jpg');
       background-repeat: repeat;
-      background-size: 260px auto;  /* tweak this to zoom in/out */
-      background-color: #fbecee;    /* soft fallback color */
+      background-size: 260px auto;
+      background-color: #fbecee;
       color: var(--ink);
       line-height: 1.6;
       padding: 1.4rem 0.75rem 2rem;
@@ -153,14 +153,6 @@
       white-space: nowrap;
     }
 
-    header .sub {
-      margin-top: 0.45rem;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: rgba(0,0,0,0.7);
-    }
-
     .divider {
       margin: 1.5rem auto 1.7rem;
       max-width: 640px;
@@ -195,22 +187,21 @@
 
     .day-card {
       position: relative;
-      background: #ffe5ef;  /* light pink */
+      background: #ffe5ef;
       border-radius: 24px;
-      padding: 1.4rem 1.2rem 1.4rem; /* extra bottom space for button */
+      padding: 1.4rem 1.2rem 1.4rem;
       box-shadow:
         0 14px 32px rgba(0,0,0,0.08),
         0 0 0 1px rgba(255,255,255,0.8) inset;
       overflow: hidden;
     }
 
-    /* straight border around each day card */
     .day-card::before {
       content: "";
       position: absolute;
       inset: 0;
       border-radius: 24px;
-      border: 3px solid var(--deep-green); /* default color */
+      border: 3px solid var(--deep-green);
       transform: none;
       pointer-events: none;
       opacity: 0.9;
@@ -241,7 +232,6 @@
       margin-bottom: 0.25rem;
     }
 
-    /* collapse toggle pill */
     .day-toggle {
       position: absolute;
       top: 0.7rem;
@@ -262,9 +252,6 @@
     .day-toggle:hover,
     .day-toggle:active {
       color: rgba(0,0,0,0.9);
-    }
-
-    .day-toggle:hover {
       background: #fff;
     }
 
@@ -272,7 +259,6 @@
       display: none;
     }
 
-    /* per-day colors */
     .day-tuesday::before,
     .day-thursday::before,
     .day-saturday::before {
@@ -301,7 +287,6 @@
       margin-bottom: 0.5rem;
     }
 
-    /* checklist */
     .checklist {
       list-style: none;
       padding-left: 0;
@@ -376,22 +361,14 @@
       border-color: #8d313d;
     }
 
-    .tiny-note {
-      margin-top: 0.5rem;
-      font-size: 0.78rem;
-      font-style: italic;
-      color: rgba(0,0,0,0.6);
-    }
-
     .day-move {
       margin-top: 0.6rem;
-      margin-left: auto;            /* push to the right */
+      margin-left: auto;
       display: inline-block;
       border: none;
       background: none;
       padding: 0;
       font-size: 0.75rem;
-      text-transform: none;
       letter-spacing: 0.06em;
       color: rgba(0,0,0,0.6);
       cursor: pointer;
@@ -454,7 +431,6 @@
       border: 2px solid #fff;
     }
 
-    /* mobile tweaks */
     @media (max-width: 640px) {
       body {
         padding: 1.1rem 0.4rem 1.6rem;
@@ -491,11 +467,6 @@
         width: 17px;
         height: 17px;
       }
-
-      .day-move {
-        bottom: 0.7rem;
-        right: 0.7rem;
-      }
     }
   </style>
 </head>
@@ -504,12 +475,10 @@
     <div class="frame">
       <div class="page-inner">
         <header>
-          <!-- big Caroline & Emma photo collage -->
           <div class="header-image-wrap">
             <img src="background.png" alt="Caroline & Emma Christmas Collage" />
           </div>
 
-          <!-- curved festive banner title under the collage -->
           <div class="banner-wrap">
             <div class="banner">
               🌲 Our Christmas Week in Richmond 🌲
@@ -607,7 +576,7 @@
                     <label class="check">
                       <input type="checkbox" data-item-id="wed_lights" />
                       <span class="box"></span>
-                      <span class="text">The Fan — Christmas lights drive </span>
+                      <span class="text">The Fan — Christmas lights drive</span>
                     </label>
                   </li>
                   <li>
@@ -780,31 +749,28 @@
     style="display:none"
   />
 
+  <!-- Firebase SDKs (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-database-compat.js"></script>
+
+  <script>
+    // 🔴 REPLACE THESE VALUES WITH YOUR ACTUAL FIREBASE CONFIG
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+  </script>
+
   <script>
     (function () {
-      const CHECKS_KEY   = 'richmond_christmas_checklist_v4';
-      const DAYS_KEY     = 'richmond_christmas_days_v2';
-      const TASK_DAY_KEY = 'richmond_christmas_task_days_v2';
-      const PHOTOS_KEY   = 'richmond_christmas_photos_v2';
-
-      function loadState(key) {
-        try {
-          const raw = localStorage.getItem(key);
-          return raw ? JSON.parse(raw) : null;
-        } catch (e) {
-          console.error('Error loading state for', key, e);
-          return null;
-        }
-      }
-
-      function saveState(key, value) {
-        try {
-          localStorage.setItem(key, JSON.stringify(value));
-        } catch (e) {
-          console.error('Error saving state for', key, e);
-        }
-      }
-
       document.addEventListener('DOMContentLoaded', function () {
         const dayCards = Array.from(document.querySelectorAll('.day-card'));
         const dayLists = {};
@@ -817,17 +783,37 @@
           }
         });
 
-        /* ===== 0. Collage elements ===== */
         const photoInput  = document.getElementById('photo-capture');
         const collageSect = document.getElementById('photo-collage');
         const collageGrid = document.getElementById('photo-collage-grid');
-        let photoState    = loadState(PHOTOS_KEY);
-        if (!Array.isArray(photoState)) photoState = [];
+
+        const allCheckboxes = Array.from(
+          document.querySelectorAll('.check input[type="checkbox"]')
+        );
+
+        const checkboxGroups = {};
+        allCheckboxes.forEach((box, index) => {
+          const itemId = box.dataset.itemId || ('box_' + index);
+          if (!checkboxGroups[itemId]) {
+            checkboxGroups[itemId] = [];
+          }
+          checkboxGroups[itemId].push(box);
+        });
+
+        // Firebase refs
+        const checksRef   = db.ref('checkState');
+        const taskDayRef  = db.ref('taskDayState');
+        const daysRef     = db.ref('dayState');
+        const photosRef   = db.ref('photos');
+
+        let checkState   = {};
+        let taskDayState = {};
+        let dayState     = {};
+        let photoState   = [];
         let activePhotoTask = null;
 
         function renderCollage() {
           if (!collageSect || !collageGrid) return;
-
           collageSect.style.display = 'block';
           collageGrid.innerHTML = '';
 
@@ -842,6 +828,7 @@
           }
 
           photoState.forEach(p => {
+            if (!p || !p.dataUrl) return;
             const img = document.createElement('img');
             img.src = p.dataUrl;
             img.alt = p.label || 'memory photo';
@@ -849,7 +836,18 @@
           });
         }
 
-        renderCollage();
+        // Photos: subscribe to Firebase
+        photosRef.on('value', (snapshot) => {
+          const data = snapshot.val();
+          if (Array.isArray(data)) {
+            photoState = data;
+          } else if (data && typeof data === 'object') {
+            photoState = Object.values(data);
+          } else {
+            photoState = [];
+          }
+          renderCollage();
+        });
 
         if (photoInput) {
           photoInput.addEventListener('change', function () {
@@ -873,8 +871,7 @@
               };
 
               photoState.push(newPhoto);
-              saveState(PHOTOS_KEY, photoState);
-              renderCollage();
+              photosRef.set(photoState);
             };
             reader.readAsDataURL(file);
 
@@ -883,60 +880,47 @@
           });
         }
 
-        /* ===== 1. Restore moved tasks to their saved day ===== */
-        let taskDayState = loadState(TASK_DAY_KEY);
-        if (!taskDayState) taskDayState = {};
+        // Task day mapping: subscribe
+        taskDayRef.on('value', (snapshot) => {
+          taskDayState = snapshot.val() || {};
 
-        const allCheckboxes = Array.from(
-          document.querySelectorAll('.check input[type="checkbox"]')
-        );
+          // re-move tasks according to mapping
+          allCheckboxes.forEach((box, index) => {
+            const itemId = box.dataset.itemId || ('box_' + index);
+            const savedDay = taskDayState[itemId];
+            if (!savedDay) return;
 
-        // group checkboxes by item id so they can sync
-        const checkboxGroups = {};
-        allCheckboxes.forEach((box, index) => {
-          const itemId = box.dataset.itemId || ('box_' + index);
-          if (!checkboxGroups[itemId]) {
-            checkboxGroups[itemId] = [];
-          }
-          checkboxGroups[itemId].push(box);
+            const li = box.closest('li');
+            const currentCard = box.closest('.day-card');
+            const currentDayId = currentCard ? currentCard.dataset.dayId : null;
+
+            const targetList = dayLists[savedDay];
+            if (li && targetList && savedDay !== currentDayId) {
+              targetList.appendChild(li);
+            }
+          });
         });
 
-        // move tasks to saved day (if they were moved before)
-        allCheckboxes.forEach((box, index) => {
-          const itemId = box.dataset.itemId || ('box_' + index);
-          const savedDay = taskDayState[itemId];
-          if (!savedDay) return;
-
-          const li = box.closest('li');
-          const currentCard = box.closest('.day-card');
-          const currentDayId = currentCard ? currentCard.dataset.dayId : null;
-
-          if (li && savedDay !== currentDayId && dayLists[savedDay]) {
-            dayLists[savedDay].appendChild(li);
-          }
-        });
-
-        /* ===== 2. Persist checkbox checked state + sync ===== */
-        let checkState = loadState(CHECKS_KEY);
-        if (!checkState) checkState = {};
-
-        allCheckboxes.forEach((box, index) => {
-          const itemId = box.dataset.itemId || ('box_' + index);
-
-          // restore checked state
-          if (Object.prototype.hasOwnProperty.call(checkState, itemId)) {
+        // Checkbox state: subscribe
+        checksRef.on('value', (snapshot) => {
+          checkState = snapshot.val() || {};
+          allCheckboxes.forEach((box, index) => {
+            const itemId = box.dataset.itemId || ('box_' + index);
             box.checked = !!checkState[itemId];
-          }
+          });
+        });
+
+        // Checkbox change handler
+        allCheckboxes.forEach((box, index) => {
+          const itemId = box.dataset.itemId || ('box_' + index);
 
           box.addEventListener('change', () => {
             const wasChecked   = !!checkState[itemId];
             const isNowChecked = box.checked;
 
-            // 1. save new state
             checkState[itemId] = isNowChecked;
-            saveState(CHECKS_KEY, checkState);
+            checksRef.set(checkState);
 
-            // 2. sync all checkboxes with same data-item-id
             const group = checkboxGroups[itemId] || [];
             group.forEach(other => {
               if (other !== box) {
@@ -944,7 +928,6 @@
               }
             });
 
-            // 3. only prompt for photo when it flips from unchecked -> checked
             if (!wasChecked && isNowChecked && photoInput) {
               const labelEl = box.closest('.check')?.querySelector('.text');
               const labelText = labelEl ? labelEl.textContent.trim() : 'this moment';
@@ -960,10 +943,8 @@
           });
         });
 
-        /* ===== 3. Collapsible days with saved state ===== */
-        let dayState = loadState(DAYS_KEY);
-        if (!dayState) dayState = {};
-
+        // Collapsible days: subscribe
+        const toggleButtons = [];
         dayCards.forEach((card, cardIndex) => {
           const dayId = card.dataset.dayId || ('day_' + cardIndex);
           const toggleBtn = card.querySelector('.day-toggle');
@@ -971,36 +952,40 @@
 
           if (!toggleBtn || !content) return;
 
-          if (dayState[dayId]) {
-            card.classList.add('collapsed');
-          }
+          toggleButtons.push({ card, dayId, toggleBtn, content });
 
-          function updateToggleLabel() {
+          toggleBtn.addEventListener('click', () => {
+            card.classList.toggle('collapsed');
+            dayState[dayId] = card.classList.contains('collapsed');
+            daysRef.set(dayState);
+          });
+        });
+
+        daysRef.on('value', (snapshot) => {
+          dayState = snapshot.val() || {};
+          toggleButtons.forEach(({ card, dayId, toggleBtn }) => {
+            if (dayState[dayId]) {
+              card.classList.add('collapsed');
+            } else {
+              card.classList.remove('collapsed');
+            }
+
             if (card.classList.contains('collapsed')) {
               toggleBtn.textContent = 'Show day ✿';
             } else {
               toggleBtn.textContent = 'Hide details ✿';
             }
-          }
-
-          toggleBtn.addEventListener('click', () => {
-            card.classList.toggle('collapsed');
-            dayState[dayId] = card.classList.contains('collapsed');
-            saveState(DAYS_KEY, dayState);
-            updateToggleLabel();
           });
-
-          updateToggleLabel();
         });
 
-        /* ===== 4. "Move to another day" buttons ===== */
+        // Move to another day: sync mapping
         dayCards.forEach(card => {
           const moveBtn = card.querySelector('.day-move');
           if (!moveBtn) return;
 
           moveBtn.addEventListener('click', () => {
-            const allChecks = card.querySelectorAll('.check input[type="checkbox"]');
-            const unchecked = Array.from(allChecks).filter(cb => !cb.checked);
+            const allChecksInCard = card.querySelectorAll('.check input[type="checkbox"]');
+            const unchecked = Array.from(allChecksInCard).filter(cb => !cb.checked);
 
             if (unchecked.length === 0) {
               alert('Everything in this day is already checked off! ✨');
@@ -1039,7 +1024,6 @@
               return;
             }
 
-            // Move every unchecked <li> to the new day and save mapping
             unchecked.forEach((cb, idx) => {
               const li = cb.closest('li');
               if (!li) return;
@@ -1049,7 +1033,7 @@
               taskDayState[itemId] = targetDay;
             });
 
-            saveState(TASK_DAY_KEY, taskDayState);
+            taskDayRef.set(taskDayState);
           });
         });
       });
