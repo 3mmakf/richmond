@@ -60,7 +60,7 @@
       padding: 2.2rem 1.5rem 2.4rem;
       background: var(--bg-paper);
 
-      /* your bow border artwork */
+      /* bow border artwork */
       background-image: url('bow-border.jpg');
       background-size: 100% 100%;
       background-repeat: no-repeat;
@@ -94,23 +94,6 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.18);
     }
 
-    .main-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.6rem, 2.4vw + 1rem, 2.3rem);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--deep-green);
-      margin-bottom: 0.35rem;
-    }
-
-    header .sub {
-      margin-top: 0.25rem;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: rgba(0,0,0,0.7);
-    }
-
     .banner-wrap {
       display: inline-block;
       position: relative;
@@ -138,19 +121,15 @@
       border-radius: 999px;
       background: linear-gradient(135deg, #fbe8e8, #fffaf4);
       border: 2px solid var(--deep-green);
-      transform: none;
       box-shadow: 0 10px 22px rgba(0,0,0,0.18);
     }
 
-    .banner-wrap::after {
-      position: absolute;
-      top: -1.1rem;
-      left: 50%;
-      transform: translateX(-50%);
+    header .sub {
+      margin-top: 0.45rem;
       font-size: 0.8rem;
-      letter-spacing: 0.4em;
-      color: var(--gold);
-      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(0,0,0,0.7);
     }
 
     .divider {
@@ -187,7 +166,7 @@
 
     .day-card {
       position: relative;
-      background: #ffe5ef;
+      background: #ffe5ef;  /* light pink */
       border-radius: 24px;
       padding: 1.4rem 1.2rem 1.4rem;
       box-shadow:
@@ -201,8 +180,7 @@
       position: absolute;
       inset: 0;
       border-radius: 24px;
-      border: 3px solid var(--deep-green);
-      transform: none;
+      border: 3px solid var(--deep-green); /* default color */
       pointer-events: none;
       opacity: 0.9;
     }
@@ -259,6 +237,7 @@
       display: none;
     }
 
+    /* per-day border colors */
     .day-tuesday::before,
     .day-thursday::before,
     .day-saturday::before {
@@ -431,6 +410,7 @@
       border: 2px solid #fff;
     }
 
+    /* mobile tweaks */
     @media (max-width: 640px) {
       body {
         padding: 1.1rem 0.4rem 1.6rem;
@@ -475,10 +455,12 @@
     <div class="frame">
       <div class="page-inner">
         <header>
+          <!-- big Caroline & Emma photo collage -->
           <div class="header-image-wrap">
             <img src="background.png" alt="Caroline & Emma Christmas Collage" />
           </div>
 
+          <!-- curved festive banner -->
           <div class="banner-wrap">
             <div class="banner">
               🌲 Our Christmas Week in Richmond 🌲
@@ -576,7 +558,7 @@
                     <label class="check">
                       <input type="checkbox" data-item-id="wed_lights" />
                       <span class="box"></span>
-                      <span class="text">The Fan — Christmas lights drive</span>
+                      <span class="text">The Fan — Christmas lights drive </span>
                     </label>
                   </li>
                   <li>
@@ -749,28 +731,35 @@
     style="display:none"
   />
 
-  <!-- Firebase SDKs (compat) -->
-  <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-database-compat.js"></script>
+  <!-- Firebase (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
   <script>
-    // 🔴 REPLACE THESE VALUES WITH YOUR ACTUAL FIREBASE CONFIG
+    // TODO: paste your Firebase config here from the Firebase console
+    // (Project settings -> General -> Your apps -> CDN)
     const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+      databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
       projectId: "YOUR_PROJECT_ID",
       storageBucket: "YOUR_PROJECT_ID.appspot.com",
       messagingSenderId: "YOUR_SENDER_ID",
       appId: "YOUR_APP_ID"
     };
 
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-  </script>
 
-  <script>
     (function () {
+      // All shared state for this trip lives under this path:
+      const ROOT_PATH   = 'richmondTrip'; // you can rename if you want
+      const CHECKS_REF  = db.ref(`${ROOT_PATH}/checks`);
+      const DAYS_REF    = db.ref(`${ROOT_PATH}/daysCollapsed`);
+      const TASK_REF    = db.ref(`${ROOT_PATH}/taskDays`);
+      const PHOTOS_REF  = db.ref(`${ROOT_PATH}/photos`);
+
       document.addEventListener('DOMContentLoaded', function () {
         const dayCards = Array.from(document.querySelectorAll('.day-card'));
         const dayLists = {};
@@ -787,10 +776,14 @@
         const collageSect = document.getElementById('photo-collage');
         const collageGrid = document.getElementById('photo-collage-grid');
 
+        let activePhotoTask = null;
+
+        // ========== CHECKBOXES ==========
         const allCheckboxes = Array.from(
           document.querySelectorAll('.check input[type="checkbox"]')
         );
 
+        // group checkboxes by item id, so multiple copies stay synced
         const checkboxGroups = {};
         allCheckboxes.forEach((box, index) => {
           const itemId = box.dataset.itemId || ('box_' + index);
@@ -800,135 +793,27 @@
           checkboxGroups[itemId].push(box);
         });
 
-        // Firebase refs
-        const checksRef   = db.ref('checkState');
-        const taskDayRef  = db.ref('taskDayState');
-        const daysRef     = db.ref('dayState');
-        const photosRef   = db.ref('photos');
-
-        let checkState   = {};
-        let taskDayState = {};
-        let dayState     = {};
-        let photoState   = [];
-        let activePhotoTask = null;
-
-        function renderCollage() {
-          if (!collageSect || !collageGrid) return;
-          collageSect.style.display = 'block';
-          collageGrid.innerHTML = '';
-
-          if (!photoState || photoState.length === 0) {
-            const msg = document.createElement('p');
-            msg.textContent = 'no photos yet — check something off and add one ✿';
-            msg.style.fontSize = '0.8rem';
-            msg.style.textAlign = 'center';
-            msg.style.color = 'rgba(0,0,0,0.5)';
-            collageGrid.appendChild(msg);
-            return;
-          }
-
-          photoState.forEach(p => {
-            if (!p || !p.dataUrl) return;
-            const img = document.createElement('img');
-            img.src = p.dataUrl;
-            img.alt = p.label || 'memory photo';
-            collageGrid.appendChild(img);
-          });
-        }
-
-        // Photos: subscribe to Firebase
-        photosRef.on('value', (snapshot) => {
-          const data = snapshot.val();
-          if (Array.isArray(data)) {
-            photoState = data;
-          } else if (data && typeof data === 'object') {
-            photoState = Object.values(data);
-          } else {
-            photoState = [];
-          }
-          renderCollage();
-        });
-
-        if (photoInput) {
-          photoInput.addEventListener('change', function () {
-            const file = this.files && this.files[0];
-            if (!file || !activePhotoTask) {
-              this.value = '';
-              return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function (e) {
-              const dataUrl = e.target.result;
-              if (!dataUrl) return;
-
-              const newPhoto = {
-                id: 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2),
-                taskId: activePhotoTask.itemId,
-                label: activePhotoTask.labelText,
-                dataUrl: dataUrl,
-                ts: Date.now()
-              };
-
-              photoState.push(newPhoto);
-              photosRef.set(photoState);
-            };
-            reader.readAsDataURL(file);
-
-            activePhotoTask = null;
-            photoInput.value = '';
-          });
-        }
-
-        // Task day mapping: subscribe
-        taskDayRef.on('value', (snapshot) => {
-          taskDayState = snapshot.val() || {};
-
-          // re-move tasks according to mapping
-          allCheckboxes.forEach((box, index) => {
-            const itemId = box.dataset.itemId || ('box_' + index);
-            const savedDay = taskDayState[itemId];
-            if (!savedDay) return;
-
-            const li = box.closest('li');
-            const currentCard = box.closest('.day-card');
-            const currentDayId = currentCard ? currentCard.dataset.dayId : null;
-
-            const targetList = dayLists[savedDay];
-            if (li && targetList && savedDay !== currentDayId) {
-              targetList.appendChild(li);
-            }
+        // When Firebase sends latest "checks" state, update UI
+        CHECKS_REF.on('value', snapshot => {
+          const data = snapshot.val() || {};
+          Object.keys(checkboxGroups).forEach(itemId => {
+            const isChecked = !!data[itemId];
+            checkboxGroups[itemId].forEach(box => {
+              box.checked = isChecked;
+            });
           });
         });
 
-        // Checkbox state: subscribe
-        checksRef.on('value', (snapshot) => {
-          checkState = snapshot.val() || {};
-          allCheckboxes.forEach((box, index) => {
-            const itemId = box.dataset.itemId || ('box_' + index);
-            box.checked = !!checkState[itemId];
-          });
-        });
-
-        // Checkbox change handler
+        // When a checkbox changes locally, push to Firebase
         allCheckboxes.forEach((box, index) => {
           const itemId = box.dataset.itemId || ('box_' + index);
 
           box.addEventListener('change', () => {
-            const wasChecked   = !!checkState[itemId];
             const isNowChecked = box.checked;
+            CHECKS_REF.child(itemId).set(isNowChecked);
 
-            checkState[itemId] = isNowChecked;
-            checksRef.set(checkState);
-
-            const group = checkboxGroups[itemId] || [];
-            group.forEach(other => {
-              if (other !== box) {
-                other.checked = isNowChecked;
-              }
-            });
-
-            if (!wasChecked && isNowChecked && photoInput) {
+            // prompt for photo only when turning from unchecked -> checked
+            if (isNowChecked && photoInput) {
               const labelEl = box.closest('.check')?.querySelector('.text');
               const labelText = labelEl ? labelEl.textContent.trim() : 'this moment';
 
@@ -943,49 +828,69 @@
           });
         });
 
-        // Collapsible days: subscribe
-        const toggleButtons = [];
-        dayCards.forEach((card, cardIndex) => {
-          const dayId = card.dataset.dayId || ('day_' + cardIndex);
-          const toggleBtn = card.querySelector('.day-toggle');
-          const content = card.querySelector('.day-content');
-
-          if (!toggleBtn || !content) return;
-
-          toggleButtons.push({ card, dayId, toggleBtn, content });
-
-          toggleBtn.addEventListener('click', () => {
-            card.classList.toggle('collapsed');
-            dayState[dayId] = card.classList.contains('collapsed');
-            daysRef.set(dayState);
-          });
-        });
-
-        daysRef.on('value', (snapshot) => {
-          dayState = snapshot.val() || {};
-          toggleButtons.forEach(({ card, dayId, toggleBtn }) => {
-            if (dayState[dayId]) {
+        // ========== DAY COLLAPSE / EXPAND ==========
+        // Listen for collapse state from Firebase
+        DAYS_REF.on('value', snapshot => {
+          const state = snapshot.val() || {};
+          dayCards.forEach((card, idx) => {
+            const dayId = card.dataset.dayId || ('day_' + idx);
+            const collapsed = !!state[dayId];
+            if (collapsed) {
               card.classList.add('collapsed');
             } else {
               card.classList.remove('collapsed');
             }
-
-            if (card.classList.contains('collapsed')) {
-              toggleBtn.textContent = 'Show day ✿';
-            } else {
-              toggleBtn.textContent = 'Hide details ✿';
+            const toggleBtn = card.querySelector('.day-toggle');
+            if (toggleBtn) {
+              toggleBtn.textContent = collapsed
+                ? 'Show day ✿'
+                : 'Hide details ✿';
             }
           });
         });
 
-        // Move to another day: sync mapping
+        // Clicking toggle pushes to Firebase
+        dayCards.forEach((card, idx) => {
+          const dayId = card.dataset.dayId || ('day_' + idx);
+          const toggleBtn = card.querySelector('.day-toggle');
+          const content = card.querySelector('.day-content');
+          if (!toggleBtn || !content) return;
+
+          toggleBtn.addEventListener('click', () => {
+            const nowCollapsed = !card.classList.contains('collapsed');
+            // Just flip locally; Firebase listener will re-sync everyone
+            DAYS_REF.child(dayId).set(nowCollapsed);
+          });
+        });
+
+        // ========== TASK MOVES (which day each item belongs to) ==========
+        // When Firebase sends mapping itemId -> dayId, move items to that day
+        TASK_REF.on('value', snapshot => {
+          const map = snapshot.val() || {};
+          Object.keys(map).forEach(itemId => {
+            const targetDay = map[itemId];
+            if (!targetDay || !dayLists[targetDay]) return;
+
+            // find the checkbox with this itemId
+            const box = document.querySelector(
+              `.check input[type="checkbox"][data-item-id="${itemId}"]`
+            );
+            if (!box) return;
+            const li = box.closest('li');
+            if (!li) return;
+
+            dayLists[targetDay].appendChild(li);
+          });
+        });
+
+        // "Move to another day" button writes new mapping into Firebase
         dayCards.forEach(card => {
           const moveBtn = card.querySelector('.day-move');
           if (!moveBtn) return;
 
           moveBtn.addEventListener('click', () => {
-            const allChecksInCard = card.querySelectorAll('.check input[type="checkbox"]');
-            const unchecked = Array.from(allChecksInCard).filter(cb => !cb.checked);
+            const allChecks = card.querySelectorAll('.check input[type="checkbox"]');
+            const unchecked = Array.from(allChecks).filter(cb => !cb.checked);
 
             if (unchecked.length === 0) {
               alert('Everything in this day is already checked off! ✨');
@@ -1012,30 +917,86 @@
               return;
             }
 
-            const targetCard = document.querySelector('.day-card[data-day-id="' + targetDay + '"]');
-            if (!targetCard) {
+            if (!dayLists[targetDay]) {
               alert('I couldn’t find that day on the page.');
               return;
             }
 
-            const targetList = targetCard.querySelector('.checklist');
-            if (!targetList) {
-              alert('That day doesn’t have a checklist to move into.');
+            const updates = {};
+            unchecked.forEach((cb, idx) => {
+              const itemId = cb.dataset.itemId || ('box_' + idx);
+              updates[itemId] = targetDay;
+            });
+
+            // One multi-update so all devices re-render from TASK_REF listener
+            TASK_REF.update(updates);
+          });
+        });
+
+        // ========== PHOTOS / COLLAGE (shared across devices) ==========
+        function renderCollageFromSnapshot(snapshot) {
+          const data = snapshot.val();
+          collageGrid.innerHTML = '';
+
+          if (!data) {
+            const msg = document.createElement('p');
+            msg.textContent = 'no photos yet — check something off and add one ✿';
+            msg.style.fontSize = '0.8rem';
+            msg.style.textAlign = 'center';
+            msg.style.color = 'rgba(0,0,0,0.5)';
+            collageGrid.appendChild(msg);
+            return;
+          }
+
+          const photosArray = Object.values(data).sort((a, b) => {
+            if (!a.ts || !b.ts) return 0;
+            return a.ts - b.ts;
+          });
+
+          photosArray.forEach(p => {
+            if (!p || !p.dataUrl) return;
+            const img = document.createElement('img');
+            img.src = p.dataUrl;
+            img.alt = p.label || 'memory photo';
+            collageGrid.appendChild(img);
+          });
+        }
+
+        // Listen for shared photos from Firebase
+        PHOTOS_REF.on('value', snapshot => {
+          renderCollageFromSnapshot(snapshot);
+        });
+
+        // When a photo is taken/selected, upload as a base64 string to Firebase
+        if (photoInput) {
+          photoInput.addEventListener('change', function () {
+            const file = this.files && this.files[0];
+            if (!file || !activePhotoTask) {
+              this.value = '';
               return;
             }
 
-            unchecked.forEach((cb, idx) => {
-              const li = cb.closest('li');
-              if (!li) return;
-              targetList.appendChild(li);
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              const dataUrl = e.target.result;
+              if (!dataUrl) return;
 
-              const itemId = cb.dataset.itemId || ('box_' + idx);
-              taskDayState[itemId] = targetDay;
-            });
+              const newPhoto = {
+                taskId: activePhotoTask.itemId,
+                label: activePhotoTask.labelText,
+                dataUrl: dataUrl,
+                ts: Date.now()
+              };
 
-            taskDayRef.set(taskDayState);
+              // Push new photo so everyone sees it
+              PHOTOS_REF.push(newPhoto);
+            };
+            reader.readAsDataURL(file);
+
+            activePhotoTask = null;
+            photoInput.value = '';
           });
-        });
+        }
       });
     })();
   </script>
